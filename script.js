@@ -1,25 +1,16 @@
-const openButton = document.getElementById('openLetter');
+const discover = document.getElementById('discover');
+const openLetter = document.getElementById('openLetter');
 const letter = document.getElementById('letter');
-const heartLayer = document.querySelector('.floating-hearts');
 
-openButton.addEventListener('click', () => {
-  const isOpen = letter.classList.toggle('show');
-  letter.setAttribute('aria-hidden', String(!isOpen));
-  openButton.textContent = isOpen ? 'Đọc lại lời nhắn 💗' : 'Mở lời nhắn của em 💌';
-  if (isOpen) {
-    for (let i = 0; i < 24; i++) createHeart();
-    letter.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
+discover.addEventListener('click', () => {
+  document.getElementById('message').scrollIntoView({behavior:'smooth'});
 });
 
-function createHeart() {
-  const heart = document.createElement('span');
-  heart.className = 'heart';
-  heart.textContent = ['♥', '♡', '💕', '💗'][Math.floor(Math.random() * 4)];
-  heart.style.left = Math.random() * 100 + 'vw';
-  heart.style.fontSize = (14 + Math.random() * 22) + 'px';
-  heart.style.animationDuration = (3 + Math.random() * 3) + 's';
-  heartLayer.appendChild(heart);
-  heart.addEventListener('animationend', () => heart.remove());
-}
-setInterval(() => { if (!document.hidden) createHeart(); }, 1100);
+openLetter.addEventListener('click', () => {
+  const isVisible = letter.classList.toggle('visible');
+  letter.setAttribute('aria-hidden', String(!isVisible));
+  openLetter.innerHTML = isVisible ? 'Đóng lá thư <span>↗</span>' : 'Mở lá thư của em <span>↗</span>';
+  if (isVisible) {
+    setTimeout(() => letter.scrollIntoView({behavior:'smooth', block:'center'}), 100);
+  }
+});
